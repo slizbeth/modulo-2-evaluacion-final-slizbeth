@@ -63,7 +63,6 @@ const setLocalStorage = (event) => {
     //relleno el array con el objeto
     favListShows.push(showObject);
 
-    //seteo mi localstorage pasandolo por stringify
     localStorage.setItem('favListShows',JSON.stringify(favListShows));
 
     paintNewFavShow(showObject);
@@ -71,7 +70,7 @@ const setLocalStorage = (event) => {
 
 //****PINTO ELEMENTOS EN HTML AL GUARDAR EN LOCAL STORAGE****//
 const paintNewFavShow = (showObject) => {
-    elementUlFav.innerHTML += `<p>${showObject.name}</p><img src=${showObject.img}>`
+    elementUlFav.innerHTML += `<p>${showObject.name}</p><img src=${showObject.img}>`;
 }
 
 //****GET FAVORITOS DE LOCAL STORAGE****//
@@ -88,6 +87,19 @@ const paintFavShows = (favShows) => {
     for(let favShow of favShows) {
         paintNewFavShow(favShow)
     }
+
+    //boton remove
+    const bntElement = document.createElement('button');
+    bntElement.type = 'button';
+    bntElement.innerText = 'Reset :(';
+    bntElement.addEventListener('click', removeLocalStorage);
+    elementUlFav.appendChild(bntElement);
+}
+
+//****BORRAR TODO DEL LOCAL STORAGE Y DE HTML****//
+const removeLocalStorage = () => {
+    localStorage.removeItem('favListShows');
+    elementUlFav.innerHTML= '';
 }
 
 buttonSearch.addEventListener('click', connectToAPI);
