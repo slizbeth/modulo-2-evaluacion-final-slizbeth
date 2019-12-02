@@ -3,9 +3,28 @@
   padding: 0;
 }
 
+form {
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 5px;
+}
+
 body {
-  background: #a4e6bf;
+  background: #fff;
   height: 100vh;
+}
+
+.color {
+  color: blue;
+  font-size: 25px;
+}
+
+li {
+  text-align: center;
+  padding: 15px;
+  margin: 10px;
 }
 
 /*# sourceMappingURL=main.css.map */
