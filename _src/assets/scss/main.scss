@@ -1,28 +1,35 @@
 @import 'core/settings';
+@import 'vendors/normalize';
 
-*{
-	margin: 0;
-	padding: 0;
-}
-form{
-	text-align: center;
-}
-h1{
-	margin-bottom: 5px;
-}
+// *{
+// 	margin: 0;
+// 	padding: 0;
+// }
+// form{
+// 	text-align: center;
+// }
 
-body {
-	background: #fff;
-	height: 100vh;
-}
+// h1{
+// 	margin-bottom: 5px;
+// }
 
-.color{
-	color: blue;
-	font-size: 25px;
-}
+// body {
+// 	background: #fff;
+// 	height: 100vh;
+// }
 
-li{
-	text-align: center;
-	padding: 15px;
-	margin: 10px;
-}
+// .color{
+// 	color: blue;
+// 	font-size: 25px;
+// }
+
+.selected {
+	background-color:#fc7f7f;
+  }
+
+// li{
+// 	text-align: center;
+// 	padding: 15px;
+// 	margin: 10px;
+// }
+

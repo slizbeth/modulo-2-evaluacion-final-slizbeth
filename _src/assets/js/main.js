@@ -6,6 +6,7 @@ const inputSerie = document.querySelector('#user-serie');
 const buttonSearch = document.querySelector('#search-button');
 const elementUl = document.querySelector('#shows-list');
 const elementUlFav = document.querySelector('#shows-list--favs');
+const form = document.querySelector('.form');
 let favListShows = [];
 
 //****CONEXIÓN CON LA API****//
@@ -43,13 +44,13 @@ const showData = (dataResponse) => {
 
 //****AÑADIR A FAVORITOS****//
 const addFav = (event) => {
-    event.currentTarget.style = 'background-color:blue; color:#fff';
-    setLocalStorage(event);
+    event.currentTarget.classList.toggle('selected')
+    //event.currentTarget.style = 'background-color:blue; color:#fff';
+    setLocalStorage();
 }
 
 //****SET FAVORITOS A LOCAL STORAGE****//
-const setLocalStorage = (event) => {
-
+const setLocalStorage = () => {
     //recogo en varibles los elementos seleccionados
     let nameShowFav = event.currentTarget.innerText;
     let imgShowFav = event.target.src;
@@ -64,13 +65,20 @@ const setLocalStorage = (event) => {
     favListShows.push(showObject);
 
     localStorage.setItem('favListShows',JSON.stringify(favListShows));
-
+    
     paintNewFavShow(showObject);
 }
 
 //****PINTO ELEMENTOS EN HTML AL GUARDAR EN LOCAL STORAGE****//
 const paintNewFavShow = (showObject) => {
-    elementUlFav.innerHTML += `<p>${showObject.name}</p><img src=${showObject.img}>`;
+    elementUlFav.innerHTML += `<p>${showObject.name}</p><img src=${showObject.img}><br>`;
+    const iElement = document.createElement('i');
+    iElement.classList.add('fas');
+    iElement.classList.add('fa-times-circle');
+    iElement.addEventListener('click', removeLocalStorage);
+    iElement.classList.add('cross');
+    elementUlFav.appendChild(iElement);
+    
 }
 
 //****GET FAVORITOS DE LOCAL STORAGE****//
@@ -92,15 +100,29 @@ const paintFavShows = (favShows) => {
     const bntElement = document.createElement('button');
     bntElement.type = 'button';
     bntElement.innerText = 'Reset :(';
-    bntElement.addEventListener('click', removeLocalStorage);
+    bntElement.classList.add('bnt');
+    bntElement.style = 'margin: 15px';
+    bntElement.addEventListener('click', removeAllLocalStorage);
     elementUlFav.appendChild(bntElement);
 }
 
 //****BORRAR TODO DEL LOCAL STORAGE Y DE HTML****//
-const removeLocalStorage = () => {
+const removeAllLocalStorage = () => {
     localStorage.removeItem('favListShows');
     elementUlFav.innerHTML= '';
 }
 
+//****BORRAR EL FAVORITO SELECCIONADO DE LOCAL STORAGE Y DE HTML****//
+const removeLocalStorage = () => {
+    console.log('Yo debería borrar la serie seleccionada');
+}
+
+//tecla intro//
+function sumbitForm(event){
+    event.preventDefault();
+    connectToAPI();
+}
+
 buttonSearch.addEventListener('click', connectToAPI);
 window.addEventListener('load', getLocalStorage);
+form.addEventListener('submit', sumbitForm);
