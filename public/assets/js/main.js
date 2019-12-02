@@ -5,8 +5,8 @@ console.log('>> Ready :)');
 const inputSerie = document.querySelector('#user-serie');
 const buttonSearch = document.querySelector('#search-button');
 const elementUl = document.querySelector('#shows-list');
-const elementUlFav = document.querySelector('shows-list--favs');
-let favShows = [];
+const elementUlFav = document.querySelector('#shows-list--favs');
+let favListShows = [];
 
 //****CONEXIÓN CON LA API****//
 const connectToAPI = () => {
@@ -34,9 +34,9 @@ const showData = (dataResponse) => {
             imgElement.src = dataResponse[i].show.image.medium;
         }
         pElement.appendChild(pContent);
+        liElement.appendChild(pElement);
         liElement.appendChild(imgElement);
         liElement.addEventListener('click', addFav);
-        liElement.appendChild(pElement);
         elementUl.appendChild(liElement);
     }
 }
@@ -44,7 +44,52 @@ const showData = (dataResponse) => {
 //****AÑADIR A FAVORITOS****//
 const addFav = (event) => {
     event.currentTarget.style = 'background-color:blue; color:#fff';
+    setLocalStorage(event);
+}
+
+//****SET FAVORITOS A LOCAL STORAGE****//
+const setLocalStorage = (event) => {
+
+    //recogo en varibles los elementos seleccionados
+    let nameShowFav = event.currentTarget.innerText;
+    let imgShowFav = event.target.src;
+
+    //creo un objeto con las series seleccionadas
+    const showObject = {
+        "name" : nameShowFav,
+        "img" : imgShowFav
+      }
+    
+    //relleno el array con el objeto
+    favListShows.push(showObject);
+
+    //seteo mi localstorage pasandolo por stringify
+    localStorage.setItem('favListShows',JSON.stringify(favListShows));
+
+    paintNewFavShow(showObject);
+}
+
+//****PINTO ELEMENTOS EN HTML AL GUARDAR EN LOCAL STORAGE****//
+const paintNewFavShow = (showObject) => {
+    elementUlFav.innerHTML += `<p>${showObject.name}</p><img src=${showObject.img}>`
+}
+
+//****GET FAVORITOS DE LOCAL STORAGE****//
+const getLocalStorage = () => {
+    const mylocalStorage = localStorage.getItem("favListShows");
+    if(mylocalStorage !== null) {
+        favListShows = JSON.parse(mylocalStorage);
+        paintFavShows(favListShows);
+    } 
+}
+
+//****PINTO ELEMENTOS EN HTML QUE SE ENCUENTRAN EN LOCAL STORAGE****//
+const paintFavShows = (favShows) => {
+    for(let favShow of favShows) {
+        paintNewFavShow(favShow)
+    }
 }
 
 buttonSearch.addEventListener('click', connectToAPI);
+window.addEventListener('load', getLocalStorage);
 //# sourceMappingURL=main.js.map
