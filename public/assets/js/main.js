@@ -2,9 +2,9 @@
 
 console.log('>> Ready :)');
 
-const urlBase = 'http://api.tvmaze.com/search/shows?q=';
 const inputSerie = document.querySelector('#user-serie');
 const buttonSearch = document.querySelector('#search-button');
+const elementUl = document.querySelector('#shows-list');
 
 //****CONEXIÓN CON LA API****//
 const connectToAPI = () => {
@@ -17,9 +17,26 @@ const connectToAPI = () => {
 
 //****MOSTRAR DATOS****//
 const showData = (dataResponse) => {
-    console.log(dataResponse);
-}
+    for (let i=0; i<dataResponse.length; i++) {
 
+        const liElement = document.createElement('li');
+        const liElementText = document.createElement('li');
+        const imgElement = document.createElement('img');
+        const spanElement = document.createElement('span');
+        const spanContent = document.createTextNode(dataResponse[i].show.name);
+        let imagen = dataResponse[i].show.image;
+        if(imagen === null){
+            imgElement.src = 'https://via.placeholder.com/210x295';
+        }else{
+            imgElement.src = dataResponse[i].show.image.medium;
+        }
+        spanElement.appendChild(spanContent);
+        liElement.appendChild(imgElement);
+        liElementText.appendChild(spanElement);
+        elementUl.appendChild(liElementText);
+        elementUl.appendChild(liElement);
+    }
+}
 
 buttonSearch.addEventListener('click', connectToAPI);
 //# sourceMappingURL=main.js.map
