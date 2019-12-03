@@ -1,12 +1,16 @@
-<main class="page__main">
-<h1>BUSCADOR DE SERIES</h1>
-
-<form class="form" action="" method="post">
+<main class="wrapper__main">
+<form id="js-form" class="wrapper__main--form" action="" method="post">
     <input id="user-serie" class="user-serie" type="text">
-    <button id="search-button" type="button">Search</button>
+    <button id="search-button" class="search-button" type="button"><i class="fas fa-search"></i></button>
 </form>
-<ul id="shows-list" class="shows-list">
-</ul>
-<ul id="shows-list--favs" class="shows-list--favs">
-</ul>
+<section class="section-shows" id="section-shows">
+    <ul id="shows-list" class="shows-list">
+    </ul>
+</section>
+<section class="section-fav" id="section-fav">
+    <p id="title-fav" class="title-fav">~Mis series favoritas~</p>
+    <button id="remove-button" class="btn hidden" type="button">Reset 😮</button>
+    <ul id="shows-list--favs" class="shows-list--favs">
+    </ul>
+</section>
 </main>

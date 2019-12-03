@@ -1,0 +1,23 @@
+body{
+    font-family: 'Solway', serif;
+}
+
+@include tablet{
+    .wrapper__main{
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        align-items:baseline;
+    }
+
+    .shows-list{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-column-gap: 10px;
+        grid-row-gap: 10px;
+    }
+}
+
+.hidden{
+    display: none;
+}

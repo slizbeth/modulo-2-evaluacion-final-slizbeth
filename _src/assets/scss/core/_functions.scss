@@ -1,0 +1,4 @@
+/*CONVERT PIXELS TO REM*/
+@function rem($pixels) {
+    @return ( $pixels / $defaultFontSize * 1rem );
+}

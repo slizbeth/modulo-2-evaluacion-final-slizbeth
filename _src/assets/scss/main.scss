@@ -1,35 +1,7 @@
-@import 'core/settings';
+@import 'core/variables';
+@import 'core/functions';
+@import 'core/mixins';
 @import 'vendors/normalize';
-
-// *{
-// 	margin: 0;
-// 	padding: 0;
-// }
-// form{
-// 	text-align: center;
-// }
-
-// h1{
-// 	margin-bottom: 5px;
-// }
-
-// body {
-// 	background: #fff;
-// 	height: 100vh;
-// }
-
-// .color{
-// 	color: blue;
-// 	font-size: 25px;
-// }
-
-.selected {
-	background-color:#fc7f7f;
-  }
-
-// li{
-// 	text-align: center;
-// 	padding: 15px;
-// 	margin: 10px;
-// }
-
+@import 'layout/base';
+@import 'layout/header';
+@import 'pages/home';

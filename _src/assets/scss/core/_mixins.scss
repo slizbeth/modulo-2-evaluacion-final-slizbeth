@@ -1,0 +1,11 @@
+/* MEDIA QUERIES */
+@mixin tablet { @media all and (min-width: 768px) { @content}};
+
+@mixin desktop { @media all and (min-width: 1024px) { @content}};
+
+/*FIRST LETTER CAPITALIZE*/
+@mixin text-capitalize{
+    &::first-letter {
+        text-transform: capitalize;
+    }
+}
