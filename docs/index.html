@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+    
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Buscador de series</title>
+        <script src="https://kit.fontawesome.com/1916f943e3.js"
+        crossorigin="anonymous"></script>
+        <link rel="icon" href="./favicon.png" />
+        <link href="https://fonts.googleapis.com/css?family=Solway&display=swap"
+        rel="stylesheet">
+        <link rel="stylesheet" href="./assets/css/main.css" />
+    </head>
+    
+    <body>
+        <div class="wrapper">
+            <header class="wrapper__header"> <i class="fab fa-angellist"></i>
+ <a class="wrapper__header--link" href="#">
+        <h1 class="wrapper__header--title">
+        BUSCADOR DE SERIES
+        </h1>
+    </a>
+ <i class="fab fa-angellist"></i>
+
+            </header>
+            <main class="wrapper__main">
+                <form id="js-form" class="wrapper__main--form" action="" method="post">
+                    <input id="user-serie" class="user-serie" type="text">
+                    <button id="search-button" class="search-button" type="button"><i class="fas fa-search"></i>
+
+                    </button>
+                </form>
+                <section class="section-shows" id="section-shows">
+                    <ul id="shows-list" class="shows-list"></ul>
+                </section>
+                <section class="section-fav" id="section-fav">
+                    <p id="title-fav" class="title-fav">~Mis series favoritas~</p>
+                    <button id="remove-button" class="btn hidden"
+                    type="button">Reset 😮</button>
+                    <ul id="shows-list--favs" class="shows-list--favs"></ul>
+                </section>
+            </main>
+        </div>
+        <script src="assets/js/main.js"></script>
+    </body>
+
+</html>
