@@ -45,16 +45,20 @@ const showData = (dataResponse) => {
         liElement.addEventListener('click', addFav);
         elementUl.appendChild(liElement);
     }
-    console.log(favListShows);
 }
 
 //****AÑADIR A FAVORITOS****//
 const addFav = (event) => {
+    
     event.currentTarget.classList.toggle('selected');
-    console.log(favListShows);
-    setLocalStorage();
-    console.log('bu');
-    console.log(favListShows);
+    console.log(event.currentTarget );
+    ///NEW///
+    if(event.currentTarget.classList.contains("selected")){
+        setLocalStorage();
+    }else{
+        console.log('no tiene clase selected');
+        elementUlFav.innerHTML='';
+    }
 }
 
 //****SET FAVORITOS A LOCAL STORAGE****//
@@ -73,10 +77,8 @@ const setLocalStorage = () => {
     let removeIndex = favListShows.map(function(favListShow) {
         return favListShow.name; 
     }).indexOf(nameShowFav);
-    console.log(removeIndex);
 
     if(removeIndex === -1){
-        console.log('añadir si no existe');
         favListShows.push(showObject);
         paintNewFavShow(showObject);
         btnRemoveAll.classList.remove('hidden');
@@ -111,7 +113,6 @@ const paintNewFavShow = (showObject) => {
     liElement.appendChild(imgElement);
     liElement.appendChild(iElement);
     elementUlFav.appendChild(liElement);
-    console.log(favListShows);
 }
 
 //****GET FAVORITOS DE LOCAL STORAGE****//
@@ -121,11 +122,8 @@ const getLocalStorage = () => {
         favListShows = JSON.parse(mylocalStorage);
         paintFavShows(favListShows);
         btnRemoveAll.classList.remove('hidden');
-        console.log(favListShows);
     }else{
         btnRemoveAll.classList.add('hidden');
-        console.log('2');
-        console.log(favListShows);
     }
 }
 
@@ -133,7 +131,6 @@ const getLocalStorage = () => {
 const paintFavShows = (favShows) => {
     for (let favShow of favShows) {
         paintNewFavShow(favShow)
-        console.log(favListShows);
     }
 }
 
@@ -144,7 +141,6 @@ const paintFavShows = (favShows) => {
 const removeAllLocalStorage = () => {
     localStorage.removeItem('favListShows');
     elementUlFav.innerHTML = '';
-    console.log(favListShows);
 }
 
 //tecla intro//
@@ -160,7 +156,6 @@ const emptyData = () =>{
 /**NEW**/
 //****BORRAR EL FAVORITO SELECCIONADO DE LOCAL STORAGE Y DE HTML****//
 const removeLocalStorage = () => {  
-    console.log(favListShows);
     let nameShowFav = '';
     //elimina del html los fav al dar a la cruz
     const elementRemove = event.currentTarget;
@@ -168,16 +163,13 @@ const removeLocalStorage = () => {
     parentelementR.remove(elementRemove);
     
     nameShowFav = parentelementR.firstChild.textContent;
-    console.log(nameShowFav);
 
     let removeIndex = favListShows.map(function(favListShow) {
-        console.log(favListShow.name);
         return favListShow.name; 
       }).indexOf(nameShowFav);
-      console.log(removeIndex);
+      
     // remove object an local
     if(removeIndex >= 0){
-        console.log('borrar uno a uno');
         favListShows.splice(removeIndex, 1);
         localStorage.setItem('favListShows', JSON.stringify(favListShows));
     }
