@@ -51,14 +51,16 @@ const showData = (dataResponse) => {
 const addFav = (event) => {
     event.currentTarget.classList.toggle('selected');
     setLocalStorage();
+    console.log('bu');
     
 }
 
 //****SET FAVORITOS A LOCAL STORAGE****//
 const setLocalStorage = () => {
     //recogo en varibles los elementos seleccionados
-    let nameShowFav = event.currentTarget.innerText;
-    let imgShowFav = event.target.src;
+    /**NEW**/
+    let nameShowFav = event.currentTarget.firstChild.innerHTML;
+    let imgShowFav = event.currentTarget.lastChild.src;
 
     //creo un objeto con las series seleccionadas
     const showObject = {
@@ -104,8 +106,10 @@ const getLocalStorage = () => {
         favListShows = JSON.parse(mylocalStorage);
         paintFavShows(favListShows);
         btnRemoveAll.classList.remove('hidden');
+        console.log('a');
     }else{
         btnRemoveAll.classList.add('hidden');
+        console.log('2');
     }
 }
 
@@ -116,22 +120,13 @@ const paintFavShows = (favShows) => {
     }
 }
 
+
+/////////////BONUS//////////////////////77
+
 //****BORRAR TODO DEL LOCAL STORAGE Y DE HTML****//
 const removeAllLocalStorage = () => {
     localStorage.removeItem('favListShows');
     elementUlFav.innerHTML = '';
-
-}
-
-//****BORRAR EL FAVORITO SELECCIONADO DE LOCAL STORAGE Y DE HTML****//
-const removeLocalStorage = () => {
-    //console.log('Yo debería borrar la serie seleccionada del local');
-    const name = document.querySelector(".fav-name").innerHTML;
-    
-    //elimina del html los fav al dar a la cruz
-    const elementRemove = event.currentTarget;
-    const parentelementR = event.currentTarget.parentElement;
-    parentelementR.remove(elementRemove);
 }
 
 //tecla intro//
@@ -143,6 +138,28 @@ function sumbitForm(event) {
 //Si no hay datos muestra mensaje
 const emptyData = () =>{
     document.querySelector('#title-fav').innerHTML = '😱 No hemos encontrado nada 😱';
+}
+/**NEW**/
+//****BORRAR EL FAVORITO SELECCIONADO DE LOCAL STORAGE Y DE HTML****//
+const removeLocalStorage = () => {  
+    //elimina del html los fav al dar a la cruz
+    const elementRemove = event.currentTarget;
+    const parentelementR = event.currentTarget.parentElement;
+    parentelementR.remove(elementRemove);
+
+    let nameShowFav = parentelementR.firstChild.innerHTML;
+ 
+    const eliminar = nameShowFav;
+    console.log(eliminar);
+    let removeIndex = favListShows.map(function(favListShow) {
+        return favListShow.name; 
+      }).indexOf(eliminar);
+    
+    // remove object
+    if(removeIndex >= 0){
+        favListShows.splice(removeIndex, 1);
+        localStorage.setItem('favListShows', JSON.stringify(favListShows));
+    }
 }
 
 buttonSearch.addEventListener('click', connectToAPI);
