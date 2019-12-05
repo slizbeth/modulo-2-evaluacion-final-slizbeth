@@ -8,9 +8,10 @@ const elementUl = document.querySelector('#shows-list');
 const elementUlFav = document.querySelector('#shows-list--favs');
 const form = document.querySelector('#js-form');
 const title = document.querySelector('#title-fav');
+const logButton = document.querySelector('#log-button');
 const btnRemoveAll = document.querySelector('#remove-button');
 let favListShows = [];
-
+const language = ['English', 'Spanish', 'Portuguese']
 //****CONEXIÓN CON LA API****//
 const connectToAPI = () => {
     const inputSerieValue = inputSerie.value;
@@ -32,6 +33,9 @@ const showData = (dataResponse) => {
         const imgElement = document.createElement('img');
         const pElement = document.createElement('p');
         const pContent = document.createTextNode(dataResponse[i].show.name);
+        const spanElement = document.createElement('span');
+        const spanElementR = document.createElement('span');
+        const spanContent = document.createTextNode(dataResponse[i].show.language);
         liElement.classList.add('li-element');
         let imagen = dataResponse[i].show.image;
         if (imagen === null) {
@@ -39,11 +43,23 @@ const showData = (dataResponse) => {
         } else {
             imgElement.src = dataResponse[i].show.image.medium;
         }
+        spanElement.appendChild(spanContent);
+        liElement.appendChild(spanElement);
+        liElement.appendChild(spanElementR);
         pElement.appendChild(pContent);
         liElement.appendChild(pElement);
         liElement.appendChild(imgElement);
         liElement.addEventListener('click', addFav);
         elementUl.appendChild(liElement);
+
+        let resultLenguage = dataResponse[i].show.language;
+        if(language.indexOf(resultLenguage) === -1){
+
+            spanElementR.innerHTML = 'No recomendado';
+        }else{
+            spanElementR.innerHTML = 'Recomendado';
+        }
+       
     }
 }
 
@@ -72,6 +88,8 @@ const setLocalStorage = () => {
 
     paintNewFavShow(showObject);
     btnRemoveAll.classList.remove('hidden');
+
+    console.log(`Tienes ${favListShows.length} favoritos`);
    
 }
 
@@ -149,3 +167,4 @@ buttonSearch.addEventListener('click', connectToAPI);
 window.addEventListener('load', getLocalStorage);
 form.addEventListener('submit', sumbitForm);
 btnRemoveAll.addEventListener('click', removeAllLocalStorage);
+logButton.addEventListener('click', setLocalStorage);
