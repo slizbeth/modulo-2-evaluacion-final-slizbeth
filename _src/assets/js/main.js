@@ -57,7 +57,7 @@ const addFav = (event) => {
         setLocalStorage();
     }else{
         console.log('no tiene clase selected');
-        elementUlFav.innerHTML='';
+        //elementUlFav.innerHTML='';
     }
 }
 
